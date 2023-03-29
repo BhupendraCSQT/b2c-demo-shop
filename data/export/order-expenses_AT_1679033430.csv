@@ -1,0 +1,1 @@
+order_reference,order_shipment_id,canceled_amount,discount_amount_aggregation,gross_price,name,net_price,price,price_to_pay_aggregation,refundable_amount,tax_amount,tax_amount_after_cancellation,tax_rate,type,expense_created_at,expense_updated_at

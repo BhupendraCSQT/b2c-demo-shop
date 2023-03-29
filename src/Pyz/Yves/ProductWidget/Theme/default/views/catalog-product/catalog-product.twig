@@ -1,6 +1,7 @@
 {% extends view('catalog-product', '@SprykerShop:ProductWidget') %}
 
 {% block body %}
+
     {% set productTemplate = molecule('product-item') %}
     {% set class = 'col col--sm-6 col--lg-4' %}
 
@@ -19,6 +20,7 @@
             image: image.external_url_small | default,
             name: data.product.abstract_name,
             idProductAbstract: data.product.id_product_abstract,
+            loopStatus: _widget.loopStatus
         },
     } only %}
         {% block labels %}

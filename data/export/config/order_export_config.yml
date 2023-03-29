@@ -40,3 +40,7 @@ actions:
       filter_criteria:
           <<: *default_filter_criteria
           store_name: [AT]
+    - data_entity: antelope
+      destination: 'antelope_Exported.{extension}'
+      filter_criteria:
+          <<: *default_filter_criteria

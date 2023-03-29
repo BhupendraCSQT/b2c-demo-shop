@@ -7,6 +7,11 @@
 
 namespace Pyz\Client\Catalog;
 
+// new added
+use Spryker\Client\Kernel\Container;
+use Pyz\Client\Catalog\Plugin\Elasticsearch\QueryExpander\AttributeCartBasedBoostingQueryExpanderPlugin;
+
+
 use Spryker\Client\Catalog\CatalogDependencyProvider as SprykerCatalogDependencyProvider;
 use Spryker\Client\Catalog\Plugin\ConfigTransferBuilder\AscendingNameSortConfigTransferBuilderPlugin;
 use Spryker\Client\Catalog\Plugin\ConfigTransferBuilder\CategoryFacetConfigTransferBuilderPlugin;
@@ -46,6 +51,56 @@ use Spryker\Client\SearchElasticsearch\Plugin\ResultFormatter\SuggestionByTypeRe
 
 class CatalogDependencyProvider extends SprykerCatalogDependencyProvider
 {
+    // new added -----------------------------------------------
+    const CLIENT_PRODUCT_STORAGE = 'product storage client';
+    const CLIENT_CART = 'cart client';
+    /**
+     * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
+     */
+
+    public function provideServiceLayerDependencies(Container $container)
+    {
+        $container = parent::provideServiceLayerDependencies($container);
+
+        $container = $this->addCartClient($container);
+        // new added ---------------
+        $container = $this->addProductStorageClient($container);
+
+        return $container;
+    }
+    //  new added --------------------------------
+    /**
+     * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
+     */
+    protected function addProductStorageClient(Container $container)
+    {
+        $container[static::CLIENT_PRODUCT_STORAGE] = function (Container $container) {
+            return $container->getLocator()->productStorage()->client();
+        };
+
+        return $container;
+    }
+
+    // new added -----------------------------------------------
+    /**
+     * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
+     */
+    protected function addCartClient(Container $container)
+    {
+        $container[static::CLIENT_CART] = function (Container $container) {
+            return $container->getLocator()->cart()->client();
+        };
+
+        return $container;
+    }
+
+
     /**
      * @return \Spryker\Client\Catalog\Dependency\Plugin\FacetConfigTransferBuilderPluginInterface[]
      */
@@ -93,7 +148,11 @@ class CatalogDependencyProvider extends SprykerCatalogDependencyProvider
             new LocalizedQueryExpanderPlugin(),
             new ProductPriceQueryExpanderPlugin(),
             new SortedQueryExpanderPlugin(),
-            new SortedCategoryQueryExpanderPlugin(CategoryFacetConfigTransferBuilderPlugin::PARAMETER_NAME),
+        //  for personalized color catalog
+            // new SortedCategoryQueryExpanderPlugin(CategoryFacetConfigTransferBuilderPlugin::PARAMETER_NAME),
+            // new added --------------------------
+            new AttributeCartBasedBoostingQueryExpanderPlugin(),
+         
             new PaginatedQueryExpanderPlugin(),
             new SpellingSuggestionQueryExpanderPlugin(),
             new IsActiveQueryExpanderPlugin(),

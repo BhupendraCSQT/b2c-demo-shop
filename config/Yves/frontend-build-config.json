@@ -5,7 +5,7 @@
         {
             "codeBucket": "",
             "namespace": "",
-            "themes": [],
+            "themes": ["newTheme"],
             "defaultTheme": "default"
         }
     ]

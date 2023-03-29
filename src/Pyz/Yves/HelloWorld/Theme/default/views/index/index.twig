@@ -1,0 +1,11 @@
+{% extends template('page-layout-main') %}
+
+{% define data = {
+helloWorld: _view.helloWorld
+} %}
+
+{% block content %}
+    <div>
+        <h2>{{ data.helloWorld }}</h2>
+    </div>
+{% endblock %}

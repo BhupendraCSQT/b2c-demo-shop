@@ -140,7 +140,8 @@
                                 <div class="grid {% if data.viewMode != 'list' %}grid--stretch product-list{% endif %}">
                                     {% if data.products %}
                                         {% for product in data.products %}
-                                            {% widget 'CatalogPageProductWidget' args [product, data.viewMode] only %}{% endwidget %}
+                                        {# testCode loopStatus/loop.index passed in a widget as arguement #}
+                                            {% widget 'CatalogPageProductWidget' args [product, data.viewMode, loop.index] only %}{% endwidget %}
                                         {% endfor %}
                                     {% else %}
                                         {% block noResults %}{{ parent() }}{% endblock %}

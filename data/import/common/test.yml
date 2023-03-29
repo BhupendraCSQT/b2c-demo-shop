@@ -1,0 +1,6 @@
+# Example of a B2C demo shop 'test' data import.
+version: 0
+
+actions:
+  - data_entity: customer
+    source: data/import/common/common/customer2.csv
