@@ -1,0 +1,11 @@
+{% block content %}
+    <!-- CMS_BLOCK_PLACEHOLDER : "title" -->
+    <!-- CMS_BLOCK_PLACEHOLDER : "description" -->
+    <!-- CMS_BLOCK_PLACEHOLDER : "demo1" -->
+    <!-- CMS_BLOCK_PLACEHOLDER : "demo2" -->
+    {{ spyCmsBlockPlaceholder('title') | raw }}
+    {{ spyCmsBlockPlaceholder('description') | raw }}
+    {{ spyCmsBlockPlaceholder('demo1') | raw }}
+    {{ spyCmsBlockPlaceholder('demo2') | raw }}
+
+{% endblock %}
